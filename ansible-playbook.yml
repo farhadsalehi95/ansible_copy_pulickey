@@ -1,0 +1,20 @@
+---
+- hosts: edge1,edge2
+  become: yes
+  gather_facts: false
+  vars_files:
+    - group_vars/all.yml
+    - group_vars/passwords.yml
+  tasks:
+    - name: Install SSH key for user
+      authorized_key:
+        user: farhad
+        key: "{{ lookup('file', item) }}"
+        state: present
+      become_user: farhad
+      become_method: sudo
+      vars:
+        ansible_ssh_pass: "{{ server_passwords[ group_names[0] ] }}" 
+      with_fileglob:
+        - "/root/ssh_key/*.pub"
+

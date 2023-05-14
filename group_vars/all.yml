@@ -1,0 +1,5 @@
+---
+ansible_ssh_common_args: "-o StrictHostKeyChecking=yes"
+server_passwords:
+  edge1: "{{ VAULT_EDGE1_PASSWORD }}"
+  edge2: "{{ VAULT_EDGE2_PASSWORD }}"
